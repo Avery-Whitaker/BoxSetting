@@ -1,4 +1,4 @@
-export ZSH="/Users/danielshotonwa/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 # Use spaceship theme
 
 ZSH_THEME="spaceship"
@@ -15,10 +15,8 @@ COMPLETION_WAITING_DOTS="true"
 plugins=(
   git
   docker
-  rails
   npm
   django
-  rails
   git zsh-z
   bundler
   dotenv

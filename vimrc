@@ -1,267 +1,108 @@
+" don't bother with vi compatibility
 set nocompatible
-runtime macros/matchit.vim
-    filetype indent plugin on
-set is
-set encoding=utf-8
+
+" enable syntax highlighting
+syntax enable
+
+" configure Vundle
+filetype on " without this vim emits a zero exit status, later, because of :ft off
+filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-let g:ackprg = 'ag --nogroup --nocolor --column'
-" ========== autocomplete
-Plugin 'styled-components/vim-styled-components'
-Plugin 'mattn/emmet-vim'
-Plugin 'ervandew/supertab'
-Plugin 'valloric/youcompleteme'
-Plugin 'luochen1990/rainbow'
-let g:rainbow_active = 1 "0
-let mapleader = ","
 
-" ========= snippets
-Plugin 'honza/vim-snippets'
-Plugin 'SirVer/ultisnips'
-
-Plugin 'epilande/vim-es2015-snippets'
-Plugin 'epilande/vim-react-snippets'
-Plugin 'easymotion/vim-easymotion'
-
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
-
-" better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger = "<Tab>"
-let g:UltiSnipsJumpForwardTrigger = "<Tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-Tab>"
-
-" ========== ruby plugins
-Plugin 'tpope/vim-dispatch'
-Plugin 'jgdavey/tslime.vim'
-Plugin 'nelstrom/vim-textobj-rubyblock'
-Plugin 'kana/vim-textobj-user'
-
-"let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
-let g:rspec_command = "Dispatch rspec {spec}"
-map <Leader>vp :VimuxPromptCommand<CR>
-map <Leader>vl :VimuxRunLastCommand<CR>
-map <Leader>vz :VimuxZoomRunner<CR>
-
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-set splitbelow
-set splitright
-
-Plugin 'leafgarland/typescript-vim'
-Plugin 'mxw/vim-jsx'
-Plugin 'pangloss/vim-javascript'
-Plugin 'w0rp/ale'
-
-let g:ale_linters = {
-      \   'python': ['flake8', 'pylint'],
-      \   'javascript': ['eslint'],
-      \   'vue': ['eslint']
-      \
-      \}
-
-let g:ale_fixers = {
-      \    '*': ['remove_trailing_lines', 'trim_whitespace'],
-      \    'javascript': ['eslint'],
-      \    'vue': ['eslint'],
-      \    'scss': ['prettier']
-      \
-      \}
-
-let g:ale_fix_on_save = 1
-let g:jsx_ext_required = 1
-let g:jsx_pragma_required = 1
-
-autocmd QuickFixCmdPost [^l]* nested cwindow
-autocmd QuickFixCmdPost    l* nested lwindow
-
-let g:typescript_ignore_browserwords = 1
-let g:typescript_ignore_typescriptdoc = 1
-" vim-rspec mappings
-map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
-map <Leader>a :call RunAllSpecs()<CR>
-
-" ========== colorschemes
-Plugin 'flazz/vim-colorschemes'
-Plugin 'cakebaker/scss-syntax.vim'
-Plugin 'craigemery/vim-autotag'
-Plugin 'edkolev/tmuxline.vim'
-Plugin 'michaeljsmith/vim-indent-object'
-
-" =========== git
-Plugin 'tpope/vim-fugitive'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'jparise/vim-graphql'
-Plugin 'vim-syntastic/syntastic'
-
-" ==== enable matchit
-" =========== markdown
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
-Plugin 'dyng/ctrlsf.vim' " for really nice search results like in sublime
-Plugin 'yonchu/accelerated-smooth-scroll'
-Plugin 'vim-scripts/IndexedSearch'
-Plugin 'itspriddle/vim-jquery'
-Plugin 'tpope/vim-haml'
-Plugin 'junegunn/goyo.vim'
-Plugin 'ecomba/vim-ruby-refactoring'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'tpope/vim-bundler'
-"========= syntax helpers
-Plugin 'hail2u/vim-css3-syntax'
-Plugin 'ap/vim-css-color'
-Plugin 'tpope/vim-commentary'
-Plugin 'junegunn/fzf.vim'
-Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plugin 'Chiel92/vim-autoformat'
-Plugin 'octol/vim-cpp-enhanced-highlight'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'lambdalisue/vim-django-support'
-Plugin 'alvan/vim-closetag'
-  let g:closetag_filenames = '*.html,*.xhtml,*.xml,*.vue,*.php,*.phtml,*.js,*.jsx,*.coffee,*.erb'
-
-
-"======= eslint
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_javascript_eslint_exe = 'npm run lint --'
-let g:syntastic_ruby_checkers = ['rubocop']
-
-" ========= file tree
-Plugin  'scrooloose/nerdtree'
-
-  let NERDTreeIgnore = [ '__pycache__',  '\.pyc$', '\.o$', '\.swp', '*\.swp', 'node_modules/' ]
-  let NERDTreeShowHidden=1
-  let NERDTreeQuitOnOpen=1
-" ========= rails
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'thoughtbot/vim-rspec'
-Plugin 'tpope/vim-rails'
-Plugin 'ngmy/vim-rubocop'
-" ========= navigation
-Plugin 'christoomey/vim-tmux-navigator'
-  " autostart nerd-tree
-  autocmd StdinReadPre * let s:std_in=1
-  " nerdtree toggle
-  map <C-t> :NERDTreeToggle<CR>
-Plugin 'zhaocai/GoldenView.Vim'
-  let g:goldenview__enable_default_mapping = 0
-Plugin 'benmills/vimux'
-  " vimux binding
-  map <Leader>vp :VimuxPromptCommand<CR>
-  nmap <F8> :TagbarToggle<CR>
-
-" ======= fuzzy find
-" Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'tpope/vim-eunuch'
-
-" ======= extras
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-Plugin 'majutsushi/tagbar'
-Plugin 'wincent/command-t'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'mileszs/ack.vim'
-if !exists('g:airline_symbols')
-   let g:airline_symbols = {}
+" install Vundle bundles
+if filereadable(expand("~/.vimrc.bundles"))
+  source ~/.vimrc.bundles
+  source ~/.vimrc.bundles.local
 endif
-" let g:airline_left_sep = '»'
-" let g:airline_left_sep = '▶'
-" let g:airline_right_sep = '«'
-" let g:airline_right_sep = '◀'
-" let g:airline_symbols.crypt = '🔒'
-" let g:airline_symbols.linenr = '☰'
-" let g:airline_symbols.linenr = '␊'
-" let g:airline_symbols.linenr = '␤'
-" let g:airline_symbols.linenr = '¶'
-" let g:airline_symbols.maxlinenr = ''
-" let g:airline_symbols.maxlinenr = '㏑'
-" let g:airline_symbols.branch = '⎇'
-" let g:airline_symbols.paste = 'ρ'
-" let g:airline_symbols.paste = 'Þ'
-" let g:airline_symbols.paste = '∥'
-" let g:airline_symbols.spell = 'Ꞩ'
-" let g:airline_symbols.notexists = 'Ɇ'
-" let g:airline_symbols.whitespace = 'Ξ'
 
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
+call vundle#end()
 
+" ensure ftdetect et al work by including this after the Vundle stuff
+filetype plugin indent on
 
-call vundle#end()            " required
-filetype plugin indent on    " required
+set autoindent
+set autoread                                                 " reload files when changed on disk, i.e. via `git checkout`
+set backspace=2                                              " Fix broken backspace in some setups
+set backupcopy=yes                                           " see :help crontab
+set clipboard=unnamed                                        " yank and paste with the system clipboard
+set directory-=.                                             " don't store swapfiles in the current directory
+set encoding=utf-8
+set expandtab                                                " expand tabs to spaces
+set ignorecase                                               " case-insensitive search
+set incsearch                                                " search as you type
+set laststatus=2                                             " always show statusline
+set list                                                     " show trailing whitespace
+set listchars=tab:▸\ ,trail:▫
+set number                                                   " show line numbers
+set ruler                                                    " show where you are
+set scrolloff=3                                              " show context above/below cursorline
+set shiftwidth=2                                             " normal mode indentation commands use 2 spaces
+set showcmd
+set smartcase                                                " case-sensitive search if any caps
+set softtabstop=2                                            " insert mode tab and backspace use 2 spaces
+set tabstop=8                                                " actual tabs occupy 8 characters
+set wildignore=log/**,node_modules/**,target/**,tmp/**,*.rbc
+set wildmenu                                                 " show a navigable menu for tab completion
+set wildmode=longest,list,full
 
-" ============= extra settings
-syntax on
+" Enable basic mouse behavior such as resizing buffers.
+set mouse=a
+if exists('$TMUX')  " Support resizing in tmux
+  set ttymouse=xterm2
+endif
 
-" tabs to 2 spaces
-" set smartindent
-set tabstop=2
-set shiftwidth=2
-set expandtab
-set ruler
-set hidden
-:set guioptions-=m " remove menu bar
-:set guioptions-=T " remove toolbar
-:set guioptions-=r " remove right-hand scroll bar
-:set guioptions-=L " remove left-hand scroll bar
-":set lines=999 columns=999
-set shortmess+=A " disable swap file warning
+" keyboard shortcuts
+let mapleader = ','
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+noremap <leader>l :Align
+nnoremap <leader>a :Ag<space>
+nnoremap <leader>b :CtrlPBuffer<CR>
+nnoremap <leader>d :NERDTreeToggle<CR>
+nnoremap <leader>f :NERDTreeFind<CR>
+nnoremap <leader>t :CtrlP<CR>
+nnoremap <leader>T :CtrlPClearCache<CR>:CtrlP<CR>
+nnoremap <leader>] :TagbarToggle<CR>
+nnoremap <leader><space> :call whitespace#strip_trailing()<CR>
+nnoremap <leader>g :GitGutterToggle<CR>
+noremap <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 
-" hybrid line numbers
-set number relativenumber
-augroup numbertoggle
-  autocmd!
-  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-  autocmd BufLeave,FocusLost,InsertEnter * set norelativenumber
-augroup END
+" in case you forgot to sudo
+cnoremap w!! %!sudo tee > /dev/null %
 
-" colorschemes
-" Dark: monokai-chris, gruvbox
-" Light: ChocolatePapaya
-Plugin 'morhetz/gruvbox'
-colorscheme gruvbox
-  let g:gruvbox_contrast_dark='default'
-  let g:gruvbox_contrast_light='default'
-" split below and right feels more natural
-set splitbelow
-set background=light
-" no wrapping
-set nowrap
+" plugin settings
+let g:ctrlp_match_window = 'order:ttb,max:20'
+let g:NERDSpaceDelims=1
+let g:gitgutter_enabled = 0
 
-" allow backspace immediately after insert
-set bs=2
+" Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
+if executable('ag')
+  " Use Ag over Grep
+  set grepprg=ag\ --nogroup\ --nocolor
 
-" useful aliases
-cnoreabbrev W w
-cnoreabbrev Q q
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
 
-" save undo in a file
-set undofile
-set undodir=~/.vim/undo
-set undolevels=1000
-set undoreload=10000
+" fdoc is yaml
+autocmd BufRead,BufNewFile *.fdoc set filetype=yaml
+" md is markdown
+autocmd BufRead,BufNewFile *.md set filetype=markdown
+autocmd BufRead,BufNewFile *.md set spell
+" extra rails.vim help
+autocmd User Rails silent! Rnavcommand decorator      app/decorators            -glob=**/* -suffix=_decorator.rb
+autocmd User Rails silent! Rnavcommand observer       app/observers             -glob=**/* -suffix=_observer.rb
+autocmd User Rails silent! Rnavcommand feature        features                  -glob=**/* -suffix=.feature
+autocmd User Rails silent! Rnavcommand job            app/jobs                  -glob=**/* -suffix=_job.rb
+autocmd User Rails silent! Rnavcommand mediator       app/mediators             -glob=**/* -suffix=_mediator.rb
+autocmd User Rails silent! Rnavcommand stepdefinition features/step_definitions -glob=**/* -suffix=_steps.rb
+" automatically rebalance windows on vim resize
+autocmd VimResized * :wincmd =
 
-
-" tmux will only forward escape sequences to the terminal if surrounded by a
-" DCS sequence
-" "
-" http://sourceforge.net/mailarchive/forum.php?thread_name=AANLkTinkbdoZ8eNR1X2UobLTeww1jFrvfJxTMfKSq-L%2B%40mail.gmail.com&forum_name=tmux-users
+" Fix Cursor in TMUX
 if exists('$TMUX')
   let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
   let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
@@ -270,10 +111,19 @@ else
   let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
 
-" Folding
-augroup XML
-    autocmd!
-    autocmd FileType xml setlocal foldmethod=indent foldlevelstart=999 foldminlines=0
-augroup END
+" Don't copy the contents of an overwritten selection.
+vnoremap p "_dP
 
-map ; :Files<CR>
+" Go crazy!
+if filereadable(expand("~/.vimrc.local"))
+  " In your .vimrc.local, you might like:
+  "
+  " set autowrite
+  " set nocursorline
+  " set nowritebackup
+  " set whichwrap+=<,>,h,l,[,] " Wrap arrow keys between lines
+  "
+  " autocmd! bufwritepost .vimrc source ~/.vimrc
+  " noremap! jj <ESC>
+  source ~/.vimrc.local
+endif
