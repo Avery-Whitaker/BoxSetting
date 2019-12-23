@@ -1,9 +1,7 @@
-export ZSH="/Users/danielshotonwa/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 # Use spaceship theme
 
-ZSH_THEME="spaceship"
-autoload -U promptinit; promptinit
-export UPDATE_ZSH_DAYS=1
+ZSH_THEME="spaceship" autoload -U promptinit; promptinit export UPDATE_ZSH_DAYS=1
 
 # Enable autocorrection
 ENABLE_CORRECTION="true"
@@ -15,17 +13,10 @@ COMPLETION_WAITING_DOTS="true"
 plugins=(
   git
   docker
-  rails
-  npm
-  django
-  rails
   git zsh-z
   bundler
   dotenv
   osx
-  rake
-  rbenv
-  ruby
   jsontools
   node
   pip
@@ -34,8 +25,7 @@ plugins=(
   colored-man-pages
   colorize
   common-aliases
-  copyfile
-)
+  copyfile )
 
 SPACESHIP_PROMPT_ORDER=(
   time
@@ -43,13 +33,6 @@ SPACESHIP_PROMPT_ORDER=(
   host
   dir
   git
-  node
-  ruby
-  xcode
-  swift
-  golang
-  php
-  rust
   docker
   venv
   pyenv
@@ -182,26 +165,20 @@ SPACESHIP_PROMPT_ORDER=(
    SPACESHIP_VI_MODE_SUFFIX="$SPACESHIP_PROMPT_DEFAULT_SUFFIX"
    SPACESHIP_VI_MODE_INSERT="[I]"
    SPACESHIP_VI_MODE_NORMAL="[N]"
-   SPACESHIP_VI_MODE_COLOR="white"
-source $ZSH/oh-my-zsh.sh
+   SPACESHIP_VI_MODE_COLOR="white" source $ZSH/oh-my-zsh.sh
 
 # My useful aliases
-alias zshconfig="vim ~/.zshrc"
-alias ohmyzsh="vim ~/.oh-my-zsh"
-alias vimconfig='vim ~/.vimrc'
-alias update="source ~/.zshrc"
-alias pro="cd documents/project/"
-alias opensource="cd documents/project/Open\ Source"
-alias appren="cd /documents/project/Apprehenticeship"
-alias personal="cd /document/project/Personal\ Projects"
-local ret_status="%(?:%{$fg[yellow]%}=> :%{$fg[red]%}=> %s)"
+alias zshconfig="vim ~/.zshrc" alias ohmyzsh="vim ~/.oh-my-zsh" alias vimconfig='vim ~/.vimrc' alias update="source 
+~/.zshrc" alias pro="cd documents/project/" alias opensource="cd documents/project/Open\ Source" alias appren="cd 
+/documents/project/Apprehenticeship" alias personal="cd /document/project/Personal\ Projects" local 
+ret_status="%(?:%{$fg[yellow]%}=> :%{$fg[red]%}=> %s)"
 
 # npm global
 export PATH=~/.npm-global/bin:$PATH
 
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-export PATH="/usr/local/opt/ruby/bin:$PATH"
+export PATH="$PATH:$HOME/.rvm/bin" export PATH="/usr/local/opt/ruby/bin:$PATH"
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
